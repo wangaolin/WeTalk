@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  
+	
+
+	<!-- 配置servlet 控制器 -->
+  <servlet>
+    <servlet-name>WeXinServlet</servlet-name>
+    <servlet-class>org.aolin.com.coreServlet.WeXinServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>WeXinServlet</servlet-name>
+    <url-pattern>/WeXinServlet</url-pattern>
+  </servlet-mapping>
+  
+  	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		/WEB-INF/applicationContext-hibernate.xml
+		</param-value>
+	</context-param>
+		<!-- 日志 目前放开日志注释 ，然后部署到百度bae3.0中 貌似项目就无法启动了，本地可以启动.待测问题 -->
+	<!-- 
+	<listener>
+		<listener-class>
+			org.springframework.web.util.Log4jConfigListener
+		</listener-class>
+	</listener>
+	 -->
+
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<!-- 用于初始化Spring容器的Listener -->
+	 <listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+
+	<!-- 防止内存泄漏 -->
+	 <listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener
+		</listener-class>
+	</listener>
+	
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>
